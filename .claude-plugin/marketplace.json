@@ -1,0 +1,15 @@
+{
+  "name": "verymint",
+  "description": "Official Claude Code plugins from Mint (verymint.app).",
+  "owner": {
+    "name": "Mint",
+    "url": "https://verymint.app"
+  },
+  "plugins": [
+    {
+      "name": "mint",
+      "source": "./",
+      "description": "A work journal your coding agent keeps for you."
+    }
+  ]
+}
