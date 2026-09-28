@@ -1,7 +1,7 @@
 {
   "name": "mint",
   "displayName": "Mint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A work journal your coding agent keeps for you. Claude Code writes worklogs, tasks and costs to Mint; you read one dashboard across every project.",
   "author": {
     "name": "Mint",

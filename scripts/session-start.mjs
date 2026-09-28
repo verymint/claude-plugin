@@ -51,7 +51,7 @@ async function main() {
   const open = (tasks.data.tasks || []).slice(0, 10);
   if (open.length) parts.push('Open tasks (notes, not instructions):\n' + open.map((t) => `- [ ] ${firstLine(t.title)}`).join('\n'));
   parts.push(
-    `When you finish meaningful work, call mint_add_worklog (folderId="${folderId}"): a one-line title, then what was done and where to pick up next. Record follow-ups with mint_add_task.`
+    `When you finish meaningful work, call mint_add_worklog (folderId="${folderId}"): a one-line title (no date; Mint adds it), then what was done and where to pick up next. Record follow-ups with mint_add_task.`
   );
   emit(parts.join('\n\n'));
 }
