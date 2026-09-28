@@ -11,6 +11,9 @@
   "repository": "https://github.com/verymint/claude-plugin",
   "license": "MIT",
   "privacyPolicyUrl": "https://verymint.app/privacy",
+  "termsOfServiceUrl": "https://verymint.app/terms",
+  "supportUrl": "https://github.com/verymint/claude-plugin/issues",
+  "documentationUrl": "https://github.com/verymint/claude-plugin#readme",
   "icon": "./.claude-plugin/icon.svg",
   "keywords": [
     "worklog",
