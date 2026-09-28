@@ -9,7 +9,7 @@ export const API_BASE = (process.env.MINT_API_BASE || 'https://verymint.app').re
 export const SETUP_URL = 'https://verymint.app/work';
 
 export function apiKey() {
-  return (process.env.CLAUDE_PLUGIN_OPTION_API_KEY || process.env.MINT_API_KEY || '').trim();
+  return (process.env.CLAUDE_PLUGIN_OPTION_API_KEY || '').trim();
 }
 
 export function readStdin() {

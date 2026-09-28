@@ -3,11 +3,22 @@
   "displayName": "Mint",
   "version": "0.1.0",
   "description": "A work journal your coding agent keeps for you. Claude Code writes worklogs, tasks and costs to Mint; you read one dashboard across every project.",
-  "author": { "name": "Mint", "url": "https://verymint.app" },
+  "author": {
+    "name": "Mint",
+    "url": "https://verymint.app"
+  },
   "homepage": "https://verymint.app",
   "repository": "https://github.com/verymint/claude-plugin",
   "license": "MIT",
-  "keywords": ["worklog", "journal", "tasks", "mcp", "productivity"],
+  "privacyPolicyUrl": "https://verymint.app/privacy",
+  "icon": "./.claude-plugin/icon.svg",
+  "keywords": [
+    "worklog",
+    "journal",
+    "tasks",
+    "mcp",
+    "productivity"
+  ],
   "userConfig": {
     "api_key": {
       "type": "string",
@@ -21,7 +32,9 @@
     "mint": {
       "type": "http",
       "url": "https://verymint.app/api/mcp",
-      "headers": { "Authorization": "Bearer ${user_config.api_key}" }
+      "headers": {
+        "Authorization": "Bearer ${user_config.api_key}"
+      }
     }
   }
 }
