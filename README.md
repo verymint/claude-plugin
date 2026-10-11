@@ -23,6 +23,7 @@ You get one dashboard across every project, and the next session picks up where 
 |---|---|
 | Session starts | Finds or creates a Mint project named after your repo, then shows Claude the latest worklogs and open tasks |
 | Claude works | Claude can use the Mint tools (`mint_add_worklog`, `mint_add_task`, `mint_search_worklog`, costs, …) |
+| You ask for a new board | Claude opens one itself with `mint_create_project` — asking for the same name twice returns the existing board, never a duplicate |
 | Claude finishes after editing files | If nothing was logged yet, Claude is reminded once to write a short worklog |
 
 Hooks never block a session: if Mint is unreachable, they stay silent.
