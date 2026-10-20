@@ -12,7 +12,7 @@ You get one dashboard across every project, and the next session picks up where 
 
 ```
 /plugin marketplace add verymint/claude-plugin
-/plugin install mint@verymint
+/plugin install verymint@verymint
 ```
 
 3. Paste your key when asked. Start a new session. That's it.

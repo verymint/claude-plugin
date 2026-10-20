@@ -2,12 +2,12 @@
   "name": "verymint",
   "description": "Official Claude Code plugins from Mint (verymint.app).",
   "owner": {
-    "name": "Mint",
+    "name": "verymint",
     "url": "https://verymint.app"
   },
   "plugins": [
     {
-      "name": "mint",
+      "name": "verymint",
       "source": "./",
       "description": "A work journal your coding agent keeps for you."
     }

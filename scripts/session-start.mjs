@@ -19,7 +19,7 @@ async function main() {
   const cwd = input.cwd || process.cwd();
 
   if (!apiKey()) {
-    emit(`[Mint] Not connected yet. Tell the user once: create an API key at ${SETUP_URL} and run /plugin to configure the mint plugin.`);
+    emit(`[Mint] Not connected yet. Tell the user once: create an API key at ${SETUP_URL} and run /plugin to configure the verymint plugin.`);
     return;
   }
 

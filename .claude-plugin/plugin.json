@@ -1,10 +1,10 @@
 {
-  "name": "mint",
-  "displayName": "Mint",
-  "version": "0.1.1",
+  "name": "verymint",
+  "displayName": "verymint",
+  "version": "0.1.2",
   "description": "A work journal your coding agent keeps for you. Claude Code writes worklogs, tasks and costs to Mint; you read one dashboard across every project.",
   "author": {
-    "name": "Mint",
+    "name": "verymint",
     "url": "https://verymint.app"
   },
   "homepage": "https://verymint.app",
