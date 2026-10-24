@@ -12,7 +12,7 @@ const root = new URL('..', import.meta.url).pathname;
 let server;
 let base;
 const calls = [];
-const fake = { ensureStatus: 201, logs: [], tasks: [] };
+const fake = { ensureStatus: 201, created: false, logs: [], hiddenOlder: 0, tasks: [] };
 
 before(async () => {
   server = createServer((req, res) => {
@@ -28,9 +28,9 @@ before(async () => {
       if (req.url === '/api/v1/projects' && req.method === 'POST') {
         res.statusCode = fake.ensureStatus;
         const name = JSON.parse(body).name;
-        return res.end(JSON.stringify(fake.ensureStatus < 300 ? { id: 'F1', name, created: true } : { error: 'limit' }));
+        return res.end(JSON.stringify(fake.ensureStatus < 300 ? { id: 'F1', name, created: fake.created } : { error: 'limit' }));
       }
-      if (req.url.startsWith('/api/v1/worklog')) return res.end(JSON.stringify({ logs: fake.logs }));
+      if (req.url.startsWith('/api/v1/worklog')) return res.end(JSON.stringify({ logs: fake.logs, hiddenOlder: fake.hiddenOlder }));
       if (req.url.startsWith('/api/v1/tasks')) return res.end(JSON.stringify({ tasks: fake.tasks }));
       res.statusCode = 404;
       res.end('{}');
@@ -106,14 +106,33 @@ test('.mint.json overrides the project name', async () => {
   assert.equal(JSON.parse(calls[0].body).name, 'Custom Name');
 });
 
-test('rejected key and free limit each explain themselves', async () => {
+test('rejected key explains itself', async () => {
   const s = sandbox();
   const bad = await run('session-start.mjs', { cwd: s.cwd, session_id: 's3' }, { CLAUDE_PLUGIN_OPTION_API_KEY: 'mint_sk_bad', CLAUDE_PLUGIN_DATA: s.data });
   assert.match(bad.out.hookSpecificOutput.additionalContext, /rejected/);
-  fake.ensureStatus = 402;
-  const lim = await run('session-start.mjs', { cwd: s.cwd, session_id: 's4' }, good(s.data));
-  assert.match(lim.out.hookSpecificOutput.additionalContext, /project limit/);
-  fake.ensureStatus = 201;
+});
+
+test('first connection: asks for a log right away, and stop nudges even without edits', async () => {
+  const s = sandbox();
+  fake.created = true;
+  fake.logs = [];
+  const r = await run('session-start.mjs', { cwd: s.cwd, session_id: 'fc' }, good(s.data));
+  fake.created = false;
+  assert.match(r.out.hookSpecificOutput.additionalContext, /just connected/);
+  const plain = join(s.dir, 'plain.jsonl');
+  writeFileSync(plain, '{"type":"assistant","message":{"content":[{"type":"text","text":"hi"}]}}\n');
+  const stop = await run('stop.mjs', { session_id: 'fc', transcript_path: plain }, good(s.data));
+  assert.equal(stop.out.decision, 'block');
+});
+
+test('older history hidden on Free is mentioned once', async () => {
+  const s = sandbox();
+  fake.hiddenOlder = 3;
+  const r = await run('session-start.mjs', { cwd: s.cwd, session_id: 'ho' }, good(s.data));
+  fake.hiddenOlder = 0;
+  assert.match(r.out.hookSpecificOutput.additionalContext, /3 older work logs are hidden/);
+  const quiet = await run('session-start.mjs', { cwd: s.cwd, session_id: 'ho2' }, good(s.data));
+  assert.doesNotMatch(quiet.out.hookSpecificOutput.additionalContext, /hidden/);
 });
 
 test('API down: silent, exit 0', async () => {

@@ -22,6 +22,7 @@ You get one dashboard across every project, and the next session picks up where 
 | When | What Mint does |
 |---|---|
 | Session starts | Finds or creates a Mint project named after your repo, then shows Claude the latest worklogs and open tasks |
+| First session in a new repo | Claude writes a first worklog right away, so you can see Mint working |
 | Claude works | Claude can use the Mint tools (`mint_add_worklog`, `mint_add_task`, `mint_search_worklog`, costs, …) |
 | You ask for a new board | Claude opens one itself with `mint_create_project` — asking for the same name twice returns the existing board, never a duplicate |
 | You ask for a local copy | Claude exports the project with `mint_export_markdown` — state, tasks and work log as one Markdown file for your repo or Obsidian vault |

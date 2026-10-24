@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Stop: fires after every reply. Nudge at most once per session, and only when
-// Claude actually changed files and has not written a worklog since the session began.
+// Stop: fires after every reply. Nudge at most once per session, when Claude
+// changed files (or the repo was just connected) and has not written a worklog yet.
 import { api, apiKey, readStdin, readSession, writeSession, transcriptHasEdits } from './lib.mjs';
 
 async function main() {
@@ -9,7 +9,7 @@ async function main() {
 
   const state = readSession(input.session_id);
   if (!state || state.nudged || !state.folderId) return;
-  if (!transcriptHasEdits(input.transcript_path)) return;
+  if (!state.firstConnect && !transcriptHasEdits(input.transcript_path)) return;
 
   const res = await api(`/api/v1/worklog?folderId=${encodeURIComponent(state.folderId)}&source=ai&limit=5`);
   if (res.status !== 200) return;
